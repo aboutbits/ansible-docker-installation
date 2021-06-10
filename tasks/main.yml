@@ -1,11 +1,4 @@
 ---
-- name: Install aptitude using apt
-  apt:
-    name: aptitude
-    state: latest
-    update_cache: yes
-    force_apt_get: yes
-
 - name: Update the server
   apt:
     upgrade: safe
@@ -21,7 +14,6 @@
     - curl
     - software-properties-common
     - python3-pip
-    - python-pip
     - virtualenv
     - python3-setuptools
     - unzip
@@ -60,6 +52,16 @@
     src: /usr/local/bin/docker-compose
     dest: /usr/bin/docker-compose
     state: link
+
+- name: Adjust Docker logging strategy
+  copy:
+    src: daemon.json
+    dest: /etc/docker/daemon.json
+
+- name: Restart the Docker daemon
+  service:
+    name: docker
+    state: restarted
 
 - name: Create /var/docker folder
   file:
