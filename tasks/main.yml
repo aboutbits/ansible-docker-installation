@@ -1,11 +1,11 @@
 ---
 - name: Update the server
-  apt:
+  ansible.builtin.apt:
     upgrade: safe
     update_cache: yes
 
 - name: Install required system packages
-  apt:
+  ansible.builtin.apt:
     name: '{{ item }}'
     state: latest
   loop:
@@ -19,52 +19,52 @@
     - unzip
 
 - name: Add Docker GPG apt key
-  apt_key:
+  ansible.builtin.apt_key:
     url: https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg
     state: present
 
 - name: Add Docker Repository
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: deb https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable
     state: present
 
 - name: Update apt and install docker-ce
-  apt:
+  ansible.builtin.apt:
     name: docker-ce
     state: latest
     update_cache: yes
 
 - name: Install Docker modules for Python
-  pip:
+  ansible.builtin.pip:
     name: '{{ item }}'
   loop:
     - docker
     - docker-compose
 
 - name: Install docker-compose
-  get_url:
+  ansible.builtin.get_url:
     url: https://github.com/docker/compose/releases/download/{{ docker_installation_compose_version }}/docker-compose-{{ ansible_system }}-{{ ansible_userspace_architecture }}
     dest: /usr/local/bin/docker-compose
     mode: 0755
 
 - name: Link docker-compose to bin folder
-  file:
+  ansible.builtin.file:
     src: /usr/local/bin/docker-compose
     dest: /usr/bin/docker-compose
     state: link
 
 - name: Adjust Docker logging strategy
-  copy:
+  ansible.builtin.copy:
     src: daemon.json
     dest: /etc/docker/daemon.json
 
 - name: Restart the Docker daemon
-  service:
+  ansible.builtin.service:
     name: docker
     state: restarted
 
 - name: Create /var/docker folder
-  file:
+  ansible.builtin.file:
     dest: /var/docker
     state: directory
     owner: root
@@ -72,7 +72,7 @@
     mode: 0774
 
 - name: Copy health check script
-  copy:
+  ansible.builtin.copy:
     src: healthchecks.py
     dest: /var/docker/healthchecks.py
 
