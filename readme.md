@@ -11,8 +11,9 @@ Installation of a Docker server.
 
 ```yaml
 - hosts: all
-  roles:
-    - role: ansible-docker-installation
+  tasks:
+    - ansible.builtin.include_role:
+        name: ansible-docker-installation
       vars:
         docker_installation_compose_version: 1.25.4
 ```
