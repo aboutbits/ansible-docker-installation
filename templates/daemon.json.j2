@@ -1,0 +1,9 @@
+{
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "10m",
+    "max-file": "3"
+  }{% if docker_installation_bridge_ip is defined %},
+  "bip": "{{ docker_installation_bridge_ip }}"
+{% endif %}
+}
