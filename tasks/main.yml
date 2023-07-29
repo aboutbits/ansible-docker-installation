@@ -43,7 +43,7 @@
 
 - name: Install docker-compose
   ansible.builtin.get_url:
-    url: https://github.com/docker/compose/releases/download/{{ docker_installation_compose_version }}/docker-compose-{{ ansible_system }}-{{ ansible_userspace_architecture }}
+    url: https://github.com/docker/compose/releases/download/v{{ docker_installation_compose_version }}/docker-compose-{{ ansible_system }}-{{ ansible_userspace_architecture }}
     dest: /usr/local/bin/docker-compose
     mode: 0755
 
@@ -75,4 +75,3 @@
   ansible.builtin.copy:
     src: healthchecks.py
     dest: /var/docker/healthchecks.py
-
