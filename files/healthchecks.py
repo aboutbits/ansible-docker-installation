@@ -62,7 +62,7 @@ def areContainersHealthy(container_ids):
 def main():
     start_time = time.time()
 
-    container_ids = executeCommand('docker-compose ps --quiet').splitlines()
+    container_ids = executeCommand('docker compose ps --quiet').splitlines()
 
     # Wait until containers are stable
     while True:

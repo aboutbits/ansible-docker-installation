@@ -13,9 +13,6 @@
     - ca-certificates
     - curl
     - software-properties-common
-    - python3-pip
-    - virtualenv
-    - python3-setuptools
     - unzip
 
 - name: Add Docker GPG apt key
@@ -33,25 +30,6 @@
     name: docker-ce
     state: latest
     update_cache: yes
-
-- name: Install Docker modules for Python
-  ansible.builtin.pip:
-    name: '{{ item }}'
-  loop:
-    - docker
-    - docker-compose
-
-- name: Install docker-compose
-  ansible.builtin.get_url:
-    url: https://github.com/docker/compose/releases/download/v{{ docker_installation_compose_version }}/docker-compose-{{ ansible_system }}-{{ ansible_userspace_architecture }}
-    dest: /usr/local/bin/docker-compose
-    mode: 0755
-
-- name: Link docker-compose to bin folder
-  ansible.builtin.file:
-    src: /usr/local/bin/docker-compose
-    dest: /usr/bin/docker-compose
-    state: link
 
 - name: Adjust Docker logging strategy
   ansible.builtin.template:
