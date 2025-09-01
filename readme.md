@@ -18,22 +18,6 @@ Installation of a Docker server.
         docker_installation_bridge_ip: "172.26.0.1/16"
 ```
 
-## Versioning
+## Build & Publish
 
-In order to have a versioning in place and working, create lightweight tags that point to the appropriate minor release versions.
-
-Creating a new minor release:
-
-```bash
-git tag v3
-git push --tags
-```
-
-Replacing an already existing minor release:
-
-```bash
-git tag -d v3
-git push origin :refs/tags/v3
-git tag v3
-git push --tags
-```
+To build and publish the role, visit the GitHub Actions page of the repository and trigger the workflow "Release Package" manually.
